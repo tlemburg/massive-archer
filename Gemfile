@@ -6,4 +6,4 @@ gem 'thin'
 gem 'sinatra'
 gem 'activerecord'
 gem 'mysql'
-
+gem 'xml-simple'

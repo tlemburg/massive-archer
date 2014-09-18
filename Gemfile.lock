@@ -37,6 +37,7 @@ GEM
     tilt (1.4.1)
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
+    xml-simple (1.1.4)
 
 PLATFORMS
   ruby
@@ -46,3 +47,4 @@ DEPENDENCIES
   mysql
   sinatra
   thin
+  xml-simple
