@@ -16,23 +16,24 @@ get '/scan' do
   out = []
 
   # get the list of RSS feeds
-  feeds = [
-    'http://www.omaha.com/search/?q=&t=article&l=25&d=&d1=&d2=&s=start_time&sd=desc&c[]=huskers/football*&f=rss',
-    'http://www.huskers.com/rss.dbml?db_oem_id=100&RSS_SPORT_ID=22&media=news',
-    'http://espn.go.com/blog/feed?blog=collegesnebraska'
-  ]
+  feeds = {
+    'OWH' => 'http://www.omaha.com/search/?q=&t=article&l=25&d=&d1=&d2=&s=start_time&sd=desc&c[]=huskers/football*&f=rss',
+    'HUSKERS' => 'http://www.huskers.com/rss.dbml?db_oem_id=100&RSS_SPORT_ID=22&media=news',
+    'ESPN' => 'http://espn.go.com/blog/feed?blog=collegesnebraska'
+  }
 
-  feeds.each do |url|
+  feeds.each do |name, url|
     open(url) do |rss|
         feed = RSS::Parser.parse(rss, false)
 
         feed.items.each do |item|
             guid = item.guid.content
-            if NewsItem.where(:guid => guid).first.nil?
+            if NewsItem.where(:guid => guid, :feed => name).first.nil?
                 new_item = NewsItem.create(
                     :title => item.title,
                     :guid => guid,
                     :link => item.link,
+                    :feed => name,
                     :original_publish_date => item.pubDate
                 )
                 out << 'Inserted article with title: ' + item.title
