@@ -12,6 +12,7 @@ massive-archer review item
 <a href="<%= item.link %>"><%= item.link %></a><br><br>
 
 <form method="POST" action="/review/<%= item.id %>">
+    <div>Hint: use "item_link" in your markdown to automatically get the above link.</div>
     <textarea cols="80" rows="10" name="site_markdown"></textarea><br>
 
     <input type="radio" name="approval" value="approve">Approved!</input><br>
