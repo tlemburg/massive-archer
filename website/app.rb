@@ -22,21 +22,25 @@ get '/scan' do
     open(url) do |rss|
         feed = RSS::Parser.parse(rss, false)
 
-        feed.items.each do |item|
-            guid = item.guid.content
-            if NewsItem.where(:guid => guid, :feed => name).first.nil?
-                new_item = NewsItem.create(
-                    :title => item.title,
-                    :guid => guid,
-                    :link => item.link,
-                    :feed => name,
-                    :reviewed => false,
-                    :original_publish_date => item.pubDate
-                )
-                out << "Inserted #{name} article with title:  #{item.title}"
-            else 
-                out << "Skipped #{name} article with title:  #{item.title}"
+        begin
+            feed.items.each do |item|
+                guid = item.guid.content
+                if NewsItem.where(:guid => guid, :feed => name).first.nil?
+                    new_item = NewsItem.create(
+                        :title => item.title,
+                        :guid => guid,
+                        :link => item.link,
+                        :feed => name,
+                        :reviewed => false,
+                        :original_publish_date => item.pubDate
+                    )
+                    out << "Inserted #{name} article with title:  #{item.title}"
+                else 
+                    out << "Skipped #{name} article with title:  #{item.title}"
+                end
             end
+        rescue
+            out << "Error with #{name} feed, did not read"
         end
     end
   end
