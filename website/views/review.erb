@@ -1,0 +1,15 @@
+<html>
+<head>
+<title>
+massive-archer review
+</title>
+
+</head>
+<body>
+
+<% items.each do |item| %>
+    <a href="/review/<%= item.id %>"><%= item.feed %> - <%= item.title %></a><br>
+<% end %>
+
+</body>
+</html>

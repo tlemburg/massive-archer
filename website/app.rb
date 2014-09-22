@@ -4,10 +4,6 @@ require 'active_record'
 require 'rss'
 require 'open-uri'
 
-class NewsItem < ActiveRecord::Base
-  
-end
-
 get '/' do
 	erb :index
 end
@@ -34,6 +30,7 @@ get '/scan' do
                     :guid => guid,
                     :link => item.link,
                     :feed => name,
+                    :reviewed => false,
                     :original_publish_date => item.pubDate
                 )
                 out << "Inserted #{name} article with title:  #{item.title}"
@@ -45,4 +42,33 @@ get '/scan' do
   end
 
   out.join('<br>')
+end
+
+get '/review' do
+    # get all the news items that need review
+    items_for_review = NewsItem.where(:reviewed => false).all
+
+    # render a page with links to each
+    erb :review, :locals => {:items => items_for_review}
+end
+
+get '/review/:id' do
+    item = NewsItem.find(params[:id])
+
+    erb :review_item, :locals => {:item => item}
+end
+
+post '/review/:id' do
+    # update the item with the appropriate info!
+    item = NewsItem.find(params[:id])
+
+    item.reviewed = true
+    if params[:approval] == 'approve'
+        item.site_markdown = params[:site_markdown]
+    end
+    item.site_publish_date = Time.now
+
+    item.save
+
+    redirect '/review'
 end

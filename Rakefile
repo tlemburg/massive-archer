@@ -21,6 +21,8 @@ task :environment do
 		:password => '',
 		:database => 'massive_archer',
 	})
+
+	require './website/models/news_item'
 	end
 
 	

@@ -14,5 +14,6 @@ else
   })
 end
 
+require './website/models/news_item'
 
 run Sinatra::Application 

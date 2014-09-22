@@ -1,0 +1,25 @@
+<html>
+<head>
+<title>
+massive-archer review item
+</title>
+
+</head>
+<body>
+
+<h3><%= item.title %></h3>
+
+<a href="<%= item.link %>"><%= item.link %></a>
+
+<form method="POST" action="/review/<%= item.id %>">
+    <textarea name="site_markdown"></textarea>
+
+    <input type="radio" name="approval" value="approve">Approved!</input>
+    <input type="radio" name="approval" value="reject">Reject</input>
+
+    <button type="submit">Go</button>
+
+</form>
+
+</body>
+</html>
