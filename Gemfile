@@ -7,6 +7,7 @@ gem 'sinatra'
 gem 'activerecord'
 gem 'mysql'
 gem 'redcarpet'
+gem 'bcrypt'
 
 group :development do 
 	gem 'shotgun'

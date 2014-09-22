@@ -22,5 +22,6 @@ task :environment do
 			:database => 'massive_archer',
 		})
 	end
-	require './website/models/news_item'
+	
+	Dir['./website/models/'].each {|f| require f}
 end
