@@ -36,9 +36,9 @@ get '/scan' do
                     :feed => name,
                     :original_publish_date => item.pubDate
                 )
-                out << 'Inserted article with title: ' + item.title
+                out << "Inserted #{name} article with title:  #{item.title}"
             else 
-                out << 'Skipped article with title: ' + item.title
+                out << "Skipped #{name} article with title:  #{item.title}"
             end
         end
     end
