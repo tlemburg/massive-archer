@@ -9,13 +9,13 @@ massive-archer review item
 
 <h3><%= item.title %></h3>
 
-<a href="<%= item.link %>"><%= item.link %></a>
+<a href="<%= item.link %>"><%= item.link %></a><br><br>
 
 <form method="POST" action="/review/<%= item.id %>">
-    <textarea name="site_markdown"></textarea>
+    <textarea cols="80" rows="10" name="site_markdown"></textarea><br>
 
-    <input type="radio" name="approval" value="approve">Approved!</input>
-    <input type="radio" name="approval" value="reject">Reject</input>
+    <input type="radio" name="approval" value="approve">Approved!</input><br>
+    <input type="radio" name="approval" value="reject">Reject</input><br><br>
 
     <button type="submit">Go</button>
 
