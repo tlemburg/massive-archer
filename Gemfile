@@ -6,6 +6,7 @@ gem 'thin'
 gem 'sinatra'
 gem 'activerecord'
 gem 'mysql'
+gem 'redcarpet'
 
 group :development do 
 	gem 'shotgun'
