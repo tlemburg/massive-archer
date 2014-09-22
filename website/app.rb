@@ -27,10 +27,10 @@ get '/scan' do
   }
 
   feeds.each do |name, url|
-    open(url) do |rss|
-        feed = RSS::Parser.parse(rss, false)
+    begin
+        open(url) do |rss|
+            feed = RSS::Parser.parse(rss, false)
 
-        begin
             feed.items.each do |item|
                 guid = item.guid.content
                 if NewsItem.where(:guid => guid, :feed => name).first.nil?
@@ -47,9 +47,9 @@ get '/scan' do
                     out << "Skipped #{name} article with title:  #{item.title}"
                 end
             end
-        rescue
-            out << "Error with #{name} feed, did not read"
         end
+    rescue
+        out << "Error with #{name} feed, did not read"
     end
   end
 

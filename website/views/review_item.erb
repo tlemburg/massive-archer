@@ -13,6 +13,7 @@ massive-archer review item
 
 <form method="POST" action="/review/<%= item.id %>">
     <div>Hint: use "item_link" in your markdown to automatically get the above link.</div>
+    <div>E.g. [The Huskers ran](item_link) for 8000 yards yesterday.</div>
     <textarea cols="80" rows="10" name="site_markdown"></textarea><br>
 
     <input type="radio" name="approval" value="approve">Approved!</input><br>
