@@ -14,18 +14,18 @@ task :migrate => :environment do
 end
  
 task :environment do
-	Dir['./models/*'].each {|f| require f}
-	Dir['./utils/*'].each {|f| require f}
+  Dir['./models/*'].each {|f| require f}
+  Dir['./utils/*'].each {|f| require f}
 
-	if ENV['RACK_ENV'] == 'production'
-		ActiveRecord::Base.establish_connection(ENV['CLEARDB_DATABASE_URL'])
-	else
-		ActiveRecord::Base.establish_connection({
-			:adapter => 'mysql',
-			:host => 'localhost',
-			:username => 'root',
-			:password => '',
-			:database => 'massive_archer',
-		})
-	end
+  if ENV['RACK_ENV'] == 'production'
+    ActiveRecord::Base.establish_connection(ENV['CLEARDB_DATABASE_URL'])
+  else
+    ActiveRecord::Base.establish_connection({
+      :adapter => 'mysql',
+      :host => 'localhost',
+      :username => 'root',
+      :password => '',
+      :database => 'massive_archer',
+    })
+  end
 end
