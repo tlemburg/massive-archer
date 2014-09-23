@@ -51,6 +51,7 @@ get '/scan' do
       c = Curl.post("http://#{ENV['AIRGRAM_KEY']}:#{ENV['AIRGRAM_SECRET']}api.airgramapp.com/1/broadcast", {
         :msg => "#{total_created} new articles for review"
       })
+      puts c.body_str
     end
   rescue Exception => e
     puts 'Problem sending Airgram notification: ' + e.message
