@@ -1,5 +1,5 @@
 require './website/app'
-Dir['./website/models/'].each {|f| require f}
+Dir['./website/models/*'].each {|f| require f}
 
 ENV['RACK_ENV'] = ENV['RACK_ENV'] || 'development'
 

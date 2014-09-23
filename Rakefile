@@ -23,5 +23,5 @@ task :environment do
 		})
 	end
 	
-	Dir['./website/models/'].each {|f| require f}
+	Dir['./website/models/*'].each {|f| require f}
 end
