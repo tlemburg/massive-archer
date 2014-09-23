@@ -15,6 +15,8 @@ get '/scan' do
     'ESPN' => 'http://espn.go.com/blog/feed?blog=collegesnebraska'
   }
 
+  total_created = 0
+
   feeds.each do |name, url|
     begin
       open(url) do |rss|
@@ -22,7 +24,7 @@ get '/scan' do
 
           feed.items.each do |item|
             guid = item.guid.content
-            if NewsItem.where(:guid => guid, :feed => name).first.nil?
+            if NewsItem.find_by(:guid => guid, :feed => name).nil?
               new_item = NewsItem.create(
                   :title => item.title,
                   :guid => guid,
@@ -32,6 +34,7 @@ get '/scan' do
                   :original_publish_date => item.pubDate
               )
               out << "Inserted #{name} article with title:  #{item.title}"
+              total_created += 1
             else 
               out << "Skipped #{name} article with title:  #{item.title}"
             end
@@ -40,6 +43,17 @@ get '/scan' do
     rescue
       out << "Error with #{name} feed, did not read"
     end
+  end
+
+  # send a notification through Airgram: only do on production for now
+  begin
+    if ENV['RACK_ENV'] == 'production'
+      c = Curl.post("http://#{ENV['AIRGRAM_KEY']}:#{ENV['AIRGRAM_SECRET']}api.airgramapp.com/1/broadcast", {
+        :msg => "#{total_created} new articles for review"
+      })
+    end
+  rescue Exception => e
+    puts 'Problem sending Airgram notification: ' + e.message
   end
 
   out.join('<br>')

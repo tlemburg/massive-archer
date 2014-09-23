@@ -3,6 +3,7 @@ require 'open-uri'
 require 'sinatra'
 require 'rss'
 require 'redcarpet'
+require 'curb'
 
 Dir['./models/*'].each {|f| require f}
 Dir['./utils/*'].each {|f| require f}

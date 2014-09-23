@@ -3,6 +3,7 @@ require 'open-uri'
 require 'sinatra'
 require 'rss'
 require 'redcarpet'
+require 'curb'
 
 ENV["RACK_ENV"] = ENV['RACK_ENV'] || 'development'
 
