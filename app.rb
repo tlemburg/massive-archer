@@ -1,11 +1,8 @@
-require 'sinatra'
-require 'pp'
-require 'active_record'
-require 'rss'
-require 'open-uri'
-require 'redcarpet'
-
-enable :sessions
+use Rack::Session::Cookie, :key => 'rack.session',
+                           :path => '/',
+                           :expire_after => 2.hours, # In seconds # may want to modify this.
+                           :secret => 'janewaychakotay',
+                           :old_secret => 'janewaychakotay'
 
 before do
   if session.has_key?(:user_id)

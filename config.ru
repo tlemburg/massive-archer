@@ -1,5 +1,10 @@
-require './website/app'
-Dir['./website/models/*'].each {|f| require f}
+require 'bundler'
+Bundler.require
+require 'active_record'
+
+Dir['./models/*'].each {|f| require f}
+Dir['./utils/*'].each {|f| require f}
+require './app'
 
 ENV['RACK_ENV'] = ENV['RACK_ENV'] || 'development'
 
@@ -14,7 +19,5 @@ else
     :database => 'massive_archer',
   })
 end
-
-
 
 run Sinatra::Application 
