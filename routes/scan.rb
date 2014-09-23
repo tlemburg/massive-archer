@@ -48,7 +48,7 @@ get '/scan' do
   # send a notification through Airgram: only do on production for now
   begin
     if ENV['RACK_ENV'] == 'production'
-      c = Curl.post("http://#{ENV['AIRGRAM_KEY']}:#{ENV['AIRGRAM_SECRET']}api.airgramapp.com/1/broadcast", {
+      c = Curl.post("http://#{ENV['AIRGRAM_KEY']}:#{ENV['AIRGRAM_SECRET']}@api.airgramapp.com/1/broadcast", {
         :msg => "#{total_created} new articles for review"
       })
       puts c.body_str
