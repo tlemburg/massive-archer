@@ -13,6 +13,10 @@ get '/review' do
   erb :review, :locals => {:items => items_for_review}
 end
 
+get '/review/new' do
+  erb :new_item
+end
+
 get '/review/:id' do
   # check that it is not under review
   item = NewsItem.find(params[:id])
@@ -26,6 +30,21 @@ get '/review/:id' do
   erb :review_item, :locals => {:item => item}
 end
 
+post '/review/new' do
+  if params[:site_markdown] == ''
+    redirect '/review/new'
+  end
+
+  item = NewsItem.create(
+    :feed => 'ORIGINAL',
+    :reviewed => true,
+    :site_publish_date => Time.now,
+    :site_markdown => params[:site_markdown]
+  )
+
+  redirect '/'
+end
+
 post '/review/:id' do
   # update the item with the appropriate info!
   item = NewsItem.find(params[:id])
@@ -33,7 +52,7 @@ post '/review/:id' do
   item.reviewed = true
   item.user_reviewing = nil
   if params[:approval] == 'approve'
-      item.site_markdown = params[:site_markdown]
+    item.site_markdown = params[:site_markdown]
   end
   item.site_publish_date = Time.now
 

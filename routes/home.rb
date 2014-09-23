@@ -3,7 +3,7 @@ get '/' do
     markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML)
 
     news_items = news_items.map do |item|
-        markdown.render(item.site_markdown.sub('item_link', item.link))
+        markdown.render(item.site_markdown.sub('item_link', item.link || ''))
     end.join
 
     erb :index, :locals => {:recent_items_html => news_items}
