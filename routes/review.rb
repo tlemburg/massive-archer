@@ -1,3 +1,10 @@
+before '/review*' do
+  unless !@user.nil? && @user.is_admin
+    puts 'unauthorized'
+    redirect '/'
+  end
+end
+
 get '/review' do
   # get all the news items that need review
   items_for_review = NewsItem.where(:reviewed => false, :user_reviewing => [nil, @user.id]).all

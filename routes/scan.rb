@@ -1,3 +1,10 @@
+before '/scan*' do
+  unless !@user.nil? && @user.is_admin
+    puts 'unauthorized'
+    redirect '/'
+  end
+end
+
 get '/scan' do
   out = []
 
