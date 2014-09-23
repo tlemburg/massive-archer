@@ -1,6 +1,8 @@
-require 'bundler'
-Bundler.require
 require 'active_record'
+require 'open-uri'
+require 'sinatra'
+require 'rss'
+require 'redcarpet'
 
 Dir['./models/*'].each {|f| require f}
 Dir['./utils/*'].each {|f| require f}

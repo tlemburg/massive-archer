@@ -1,6 +1,8 @@
-require 'bundler'
-Bundler.require
 require 'active_record'
+require 'open-uri'
+require 'sinatra'
+require 'rss'
+require 'redcarpet'
 
 ENV["RACK_ENV"] = ENV['RACK_ENV'] || 'development'
 
