@@ -7,6 +7,14 @@ require 'redcarpet'
 
 enable :sessions
 
+before do
+  if session.has_key?(:user_id)
+    @user = User.find(session[:user_id])
+  else
+    @user = nil
+  end
+end
+
 get '/' do
     news_items = NewsItem.where(:reviewed => true).where.not(:site_markdown => nil).order(:site_publish_date => :desc).limit(10).all
     markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML)
@@ -16,6 +24,30 @@ get '/' do
     end.join
 
 	erb :index, :locals => {:recent_items_html => news_items}
+end
+
+post '/login' do
+  user = User.where(:username => params[:username]).first
+
+  if user.nil?
+    puts 'username does not exist'
+    redirect '/'
+  end
+
+  # check the password
+  if user.password != params[:password]
+    puts 'wrong password'
+    redirect '/'
+  end
+
+  # it is the user, hooray
+  session[:user_id] = user.id
+  redirect '/'
+end
+
+get '/logout' do
+  session.clear
+  redirect '/'
 end
 
 get '/scan' do

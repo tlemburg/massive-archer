@@ -6,6 +6,17 @@ massive-archer
 
 </head>
 <body>
+<div style="float:right;">
+  <% if @user.nil? %>
+  <form action="/login" method="POST">
+    <label>username</label><input type="text" name="username"><br>
+    <label>password</label><input type="password" name="password"><br>
+    <button type="submit">Log In!</button>
+  </form>
+  <% else %>
+  Logged in as <%= @user.username %> <a href='/logout'>Logout</a>
+  <% end %>
+</div>
 Welcome to massive-archer<br>
 <img src="http://www.ejumpcut.org/archive/jc50.2008/StarTrekEnt/twilightJCimages/20ArcherWatches.jpg" /><br>
 The number one site for Husker news.<br><br>
