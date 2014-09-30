@@ -9,6 +9,7 @@ gem 'mysql'
 gem 'redcarpet'
 gem 'bcrypt'
 gem 'curb'
+gem 'stripe'
 
 group :development do 
 	gem 'shotgun'
