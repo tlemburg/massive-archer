@@ -14,7 +14,7 @@ massive-archer
     <button type="submit">Log In!</button>
   </form>
   <% unless @temp_user.nil? %>
-    You have <%= ((@temp_user.valid_until - Time.now) / 3600).round(1) %> hours remaining on your free trial.<br><br>
+    You have <%= [0, ((@temp_user.valid_until - Time.now) / 3600).round(1)].max %> hours remaining on your free trial.<br><br>
   <% end %>
 
   <a style="font-weight: bold; color: white; background: blue; border-radius: 5px; padding: 5px;" href="/create-account">Create an Account</a>
