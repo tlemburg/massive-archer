@@ -5,6 +5,8 @@ use Rack::Session::Cookie, :key => 'rack.session',
                            :old_secret => 'janewaychakotay'
 
 before do
+
+
   if session.has_key?(:user_id)
     @user = User.find(session[:user_id])
     @temp_user = nil
@@ -15,15 +17,19 @@ before do
     # that will reference a temporary user with a unique key
     if cookies[:temp_user_key].nil? || (this_user = TempUser.find_by(:key => cookies[:temp_user_key])).nil?
       # create and assign a new temp user
+      key = (1..20).to_a.map{(Random.rand(26) + 65).chr}.join
       @temp_user = TempUser.create({
-        :key => [1..20].map{(Random.rand(26) + 65).chr}.join,
+        :key => key,
         :valid_until => Time.now + 1.week
       })
+      cookies[:temp_user_key] = key
+      puts cookies.inspect
     else
       # this is a known temp user
       @temp_user = this_user
     end
   end
+  puts @temp_user.inspect
 end
 
 Dir['./routes/*'].each {|f| require f}

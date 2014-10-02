@@ -18,6 +18,11 @@ if !ENV['STRIPE_TEST_SECRET']
     ENV['STRIPE_TEST_SECRET'] = JSON.parse(File.read('./.config/config.json'))['stripe_test_secret']
 end
 
+if ENV['RACK_ENV'] == 'development'
+  # weird workaround for localhost cookie things
+  set :cookie_options, :domain => nil
+end
+
 if ENV['RACK_ENV'] == 'production'
   ActiveRecord::Base.establish_connection(ENV['CLEARDB_DATABASE_URL'])
 else
