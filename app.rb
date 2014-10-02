@@ -5,8 +5,6 @@ use Rack::Session::Cookie, :key => 'rack.session',
                            :old_secret => 'janewaychakotay'
 
 before do
-
-
   if session.has_key?(:user_id)
     @user = User.find(session[:user_id])
     @temp_user = nil
@@ -29,7 +27,6 @@ before do
       @temp_user = this_user
     end
   end
-  puts @temp_user.inspect
 end
 
 Dir['./routes/*'].each {|f| require f}
