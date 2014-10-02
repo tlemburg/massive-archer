@@ -28,4 +28,8 @@ class AddUsersTable < ActiveRecord::Migration
             :stripe_customer_id => nil,
         )
     end
+
+    def down
+        drop_table :users
+    end
 end

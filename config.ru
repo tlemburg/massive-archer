@@ -1,6 +1,7 @@
 require 'active_record'
 require 'open-uri'
 require 'sinatra'
+require 'sinatra/cookies'
 require 'rss'
 require 'redcarpet'
 require 'curb'

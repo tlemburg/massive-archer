@@ -33,6 +33,11 @@ post '/create-account' do
     redirect '/create-account'
   end
 
+  if params[:username].empty? || params[:password].empty?
+    puts 'need username and password'
+    redirect '/create-account'
+  end
+
   Stripe.api_key = ENV['STRIPE_TEST_SECRET']
 
   # need to send this token up to stripe to create a recurring subscription
