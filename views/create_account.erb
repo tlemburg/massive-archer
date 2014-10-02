@@ -1,0 +1,26 @@
+<html>
+<head>
+<title>
+massive-archer create account
+</title>
+
+</head>
+<body>
+
+<form action="/create-account" method="POST">
+    <label>Desired Username:</label><input type="text" name="username" /><br>
+    <label>Password:</label><input type="password" name="password" /><br>
+
+    <script
+        src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+        data-key="<%= ENV['STRIPE_TEST_KEY'] %>"
+        data-image="/square-image.png"
+        data-name="Massive Archer"
+        data-description="Yearly Subscription ($2.86)"
+        data-amount="286"
+        data-allow-remember-me="false">
+    </script>
+</form>
+
+</body>
+</html>
