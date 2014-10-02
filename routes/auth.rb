@@ -49,7 +49,7 @@ post '/create-account' do
     }
   )
 
-  u = User.new({
+  user = User.new({
     :username => params["username"],
     :is_admin => false,
     :is_reviewer => false,
@@ -57,7 +57,10 @@ post '/create-account' do
     :stripe_customer_id => customer.id
   })
 
-  u.password = params[:password]
-  u.save
+  user.password = params[:password]
+  user.save
+  session.clear
+  session[:user_id] = user.id
 
+  redirect '/'
 end
